@@ -1,0 +1,174 @@
+{% load static %}
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+```
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>
+    {% block title %}
+        {% if settings %}
+            {{ settings.site_name }}
+        {% else %}
+            Japhet Cheremo Portfolio
+        {% endif %}
+    {% endblock %}
+</title>
+
+<meta name="description"
+      content="Japhet Cheremo - Software Engineer, Web Developer, Django Developer and Technology Enthusiast Portfolio.">
+
+<meta name="keywords"
+      content="Japhet Cheremo, Software Engineer, Django Developer, Python Developer, Portfolio, Kenya">
+
+<meta name="author"
+      content="Japhet Cheremo">
+
+<link rel="stylesheet" href="{% static 'kenya/css/style.css' %}">
+
+<!-- Font Awesome -->
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+{% if settings and settings.favicon %}
+    <link rel="icon" href="{{ settings.favicon.url }}">
+{% endif %}
+```
+
+</head>
+
+<body>
+
+```
+<!-- NAVIGATION -->
+
+<nav>
+
+    <div class="container">
+
+        <h2>
+
+            {% if settings %}
+                {{ settings.site_name }}
+            {% else %}
+                Japhet Cheremo
+            {% endif %}
+
+        </h2>
+
+        <ul>
+
+            <li>
+                <a href="/">Home</a>
+            </li>
+
+            <li>
+                <a href="/about/">About</a>
+            </li>
+
+            <li>
+                <a href="/projects/">Projects</a>
+            </li>
+
+            <li>
+                <a href="/blog/">Blog</a>
+            </li>
+
+            <li>
+                <a href="/contact/">Contact</a>
+            </li>
+
+        </ul>
+
+    </div>
+
+</nav>
+
+<!-- MAIN CONTENT -->
+
+<main>
+
+    {% block content %}
+    {% endblock %}
+
+</main>
+
+<!-- FLOATING SOCIAL BUTTONS -->
+
+<div class="floating-social">
+
+    <a href="https://wa.me/254719678760"
+       target="_blank"
+       class="social-btn whatsapp"
+       title="WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <a href="https://www.tiktok.com/@japhet.cheremo"
+       target="_blank"
+       class="social-btn tiktok"
+       title="TikTok">
+        <i class="fab fa-tiktok"></i>
+    </a>
+
+    <a href="https://x.com/JaphetCheremo"
+       target="_blank"
+       class="social-btn twitter"
+       title="X">
+        <i class="fab fa-x-twitter"></i>
+    </a>
+
+    <a href="https://www.facebook.com/profile.php?id=61564247063691"
+       target="_blank"
+       class="social-btn facebook"
+       title="Facebook">
+        <i class="fab fa-facebook-f"></i>
+    </a>
+
+    <a href="https://github.com/japhetcheremo-cloud"
+       target="_blank"
+       class="social-btn github"
+       title="GitHub">
+        <i class="fab fa-github"></i>
+    </a>
+
+    <a href="https://www.instagram.com/honjaphetcheremo/"
+       target="_blank"
+       class="social-btn instagram"
+       title="Instagram">
+        <i class="fab fa-instagram"></i>
+    </a>
+
+    <a href="mailto:japhetcheremo@gmail.com"
+       class="social-btn email"
+       title="Email">
+        <i class="fas fa-envelope"></i>
+    </a>
+
+</div>
+
+<!-- FOOTER -->
+
+<footer>
+
+    <div class="container">
+
+        {% if settings %}
+            <p>{{ settings.footer }}</p>
+        {% else %}
+            <p>© 2026 Japhet Cheremo. All Rights Reserved.</p>
+        {% endif %}
+
+    </div>
+
+</footer>
+```
+
+</body>
+
+</html>

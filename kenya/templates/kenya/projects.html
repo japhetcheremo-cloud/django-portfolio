@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Projects
+{% endblock %}
+
+{% block content %}
+
+<section class="container">
+
+    <h1>My Projects</h1>
+
+    {% for project in projects %}
+        <div>
+            <h3>{{ project.title }}</h3>
+            <p>{{ project.description }}</p>
+        </div>
+    {% empty %}
+        <p>No projects available.</p>
+    {% endfor %}
+
+</section>
+
+{% endblock %}

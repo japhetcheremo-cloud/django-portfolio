@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Contact
+{% endblock %}
+
+{% block content %}
+
+<section class="container">
+
+    <h1>Contact Me</h1>
+
+    <p>Email: {{ profile.email }}</p>
+    <p>Phone: {{ profile.phone }}</p>
+    <p>Location: {{ profile.location }}</p>
+
+</section>
+
+{% endblock %}

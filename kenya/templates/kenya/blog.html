@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Blog
+{% endblock %}
+
+{% block content %}
+
+<section class="container">
+
+    <h1>Blog Posts</h1>
+
+    {% for blog in blogs %}
+        <div>
+            <h3>{{ blog.title }}</h3>
+            <p>{{ blog.content|truncatewords:30 }}</p>
+        </div>
+    {% empty %}
+        <p>No blog posts yet.</p>
+    {% endfor %}
+
+</section>
+
+{% endblock %}

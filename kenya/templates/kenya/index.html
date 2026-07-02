@@ -1,0 +1,288 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- HERO SECTION -->
+
+<section id="hero">
+
+```
+<div class="container hero-container">
+
+    <div class="hero-text">
+
+        <h1>{{ profile.full_name }}</h1>
+
+        <h2>{{ profile.profession }}</h2>
+
+        <p>{{ profile.slogan }}</p>
+
+        <a href="#projects" class="btn">
+            View My Projects
+        </a>
+
+        {% if profile.cv %}
+        <a href="{{ profile.cv.url }}" class="btn" target="_blank" style="margin-left:10px;">
+            Download CV
+        </a>
+        {% endif %}
+
+        <div class="social-links">
+
+            {% if profile.github %}
+            <a href="{{ profile.github }}" target="_blank">
+                GitHub
+            </a>
+            {% endif %}
+
+            {% if profile.twitter %}
+            <a href="{{ profile.twitter }}" target="_blank">
+                Twitter
+            </a>
+            {% endif %}
+
+            {% if profile.instagram %}
+            <a href="{{ profile.instagram }}" target="_blank">
+                Instagram
+            </a>
+            {% endif %}
+
+            {% if profile.facebook %}
+            <a href="{{ profile.facebook }}" target="_blank">
+                Facebook
+            </a>
+            {% endif %}
+
+        </div>
+
+    </div>
+
+    <div class="hero-image">
+
+        {% if profile.profile_image %}
+        <img src="{{ profile.profile_image.url }}"
+             alt="{{ profile.full_name }}">
+        {% endif %}
+
+    </div>
+
+</div>
+```
+
+</section>
+
+<!-- ABOUT -->
+
+<section id="about">
+
+```
+<div class="container">
+
+    <h2>About Me</h2>
+
+    <p>{{ profile.bio }}</p>
+
+</div>
+```
+
+</section>
+
+<!-- SKILLS -->
+
+<section id="skills">
+
+```
+<div class="container">
+
+    <h2>My Skills</h2>
+
+    <div class="skills-grid">
+
+        {% for skill in skills %}
+
+        <div class="skill-card">
+
+            <h3>{{ skill.name }}</h3>
+
+            <p>{{ skill.percentage }}%</p>
+
+        </div>
+
+        {% empty %}
+
+        <p>No skills added yet.</p>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+```
+
+</section>
+
+<!-- SERVICES -->
+
+<section id="services">
+
+```
+<div class="container">
+
+    <h2>Services</h2>
+
+    <div class="skills-grid">
+
+        {% for service in services %}
+
+        <div class="skill-card">
+
+            <h3>{{ service.title }}</h3>
+
+            <p>{{ service.description }}</p>
+
+        </div>
+
+        {% empty %}
+
+        <p>No services available.</p>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+```
+
+</section>
+
+<!-- PROJECTS -->
+
+<section id="projects">
+
+```
+<div class="container">
+
+    <h2>Featured Projects</h2>
+
+    <div class="project-grid">
+
+        {% for project in projects %}
+
+        <div class="project-card">
+
+            {% if project.image %}
+            <img src="{{ project.image.url }}"
+                 alt="{{ project.title }}">
+            {% endif %}
+
+            <div class="project-content">
+
+                <h3>{{ project.title }}</h3>
+
+                <p>{{ project.description|truncatewords:25 }}</p>
+
+                <small>
+                    <strong>Technologies:</strong>
+                    {{ project.technologies }}
+                </small>
+
+                <br><br>
+
+                {% if project.github %}
+                <a href="{{ project.github }}"
+                   target="_blank"
+                   class="btn">
+                    GitHub
+                </a>
+                {% endif %}
+
+                {% if project.live_demo %}
+                <a href="{{ project.live_demo }}"
+                   target="_blank"
+                   class="btn">
+                    Live Demo
+                </a>
+                {% endif %}
+
+            </div>
+
+        </div>
+
+        {% empty %}
+
+        <p>No projects available yet.</p>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+```
+
+</section>
+
+<!-- TESTIMONIALS -->
+
+<section id="testimonials">
+
+```
+<div class="container">
+
+    <h2>Testimonials</h2>
+
+    <div class="skills-grid">
+
+        {% for testimonial in testimonials %}
+
+        <div class="skill-card">
+
+            <h3>{{ testimonial.name }}</h3>
+
+            <small>{{ testimonial.profession }}</small>
+
+            <p style="margin-top:15px;">
+                "{{ testimonial.message }}"
+            </p>
+
+        </div>
+
+        {% empty %}
+
+        <p>No testimonials available.</p>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+```
+
+</section>
+
+<!-- CONTACT -->
+
+<section id="contact">
+
+```
+<div class="container">
+
+    <h2>Get In Touch</h2>
+
+    <p><strong>Email:</strong> {{ profile.email }}</p>
+
+    <p><strong>Phone:</strong> {{ profile.phone }}</p>
+
+    <p><strong>Location:</strong> {{ profile.location }}</p>
+
+    <br>
+
+    <a href="mailto:{{ profile.email }}" class="btn">
+        Send Email
+    </a>
+
+</div>
+```
+
+</section>
+
+{% endblock %}
