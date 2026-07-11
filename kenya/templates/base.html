@@ -29,11 +29,22 @@
 <meta name="author"
       content="Japhet Cheremo">
 
-<link rel="stylesheet" href="{% static 'kenya/css/style.css' %}">
-
 <!-- Font Awesome -->
 <link rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+      <link rel="preload"
+      href="{% static 'kenya/css/style.css' %}"
+      as="style">
+
+<link rel="stylesheet"
+      href="{% static 'kenya/css/style.css' %}">
+
+      <style>
+@font-face {
+    font-display: swap;
+}
+</style>
 
 {% if settings and settings.favicon %}
     <link rel="icon" href="{{ settings.favicon.url }}">
@@ -63,27 +74,23 @@
 
         <ul>
 
-            <li>
-                <a href="/">Home</a>
-            </li>
+    <li><a href="#hero">Home</a></li>
 
-            <li>
-                <a href="/about/">About</a>
-            </li>
+    <li><a href="#about">About</a></li>
 
-            <li>
-                <a href="/projects/">Projects</a>
-            </li>
+    <li><a href="#skills">Skills</a></li>
 
-            <li>
-                <a href="/blog/">Blog</a>
-            </li>
+    <li><a href="#services">Services</a></li>
 
-            <li>
-                <a href="/contact/">Contact</a>
-            </li>
+    <li><a href="#projects">Projects</a></li>
 
-        </ul>
+    <li><a href="#testimonials">Testimonials</a></li>
+
+    <li><a href="#contact">Contact</a></li>
+
+    <li><a href="{% url 'blog' %}">Blog</a></li>
+
+</ul>
 
     </div>
 

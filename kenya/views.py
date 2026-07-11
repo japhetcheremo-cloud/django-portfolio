@@ -1,7 +1,14 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
+
 from .models import *
+from .mpesa import stk_push
+
+
 
 def home(request):
+
     context = {
         "profile": Profile.objects.first(),
         "skills": Skill.objects.all(),
@@ -10,16 +17,131 @@ def home(request):
         "testimonials": Testimonial.objects.all(),
         "settings": SiteSettings.objects.first(),
     }
+
     return render(request, "kenya/index.html", context)
 
+
+
 def about(request):
-    return render(request, "kenya/about.html")
+
+    context = {
+        "profile": Profile.objects.first(),
+        "education": Education.objects.all(),
+        "experience": Experience.objects.all(),
+        "certificates": Certificate.objects.all(),
+        "settings": SiteSettings.objects.first(),
+    }
+
+    return render(request, "kenya/about.html", context)
+
+
 
 def projects(request):
-    return render(request, "kenya/projects.html")
+
+    context = {
+        "projects": Project.objects.all().order_by("-created"),
+        "settings": SiteSettings.objects.first(),
+    }
+
+    return render(request, "kenya/projects.html", context)
+
+
 
 def blog(request):
-    return render(request, "kenya/blog.html")
+
+    context = {
+        "blogs": Blog.objects.all().order_by("-published"),
+        "settings": SiteSettings.objects.first(),
+    }
+
+    return render(request, "kenya/blog.html", context)
+
+
 
 def contact(request):
-    return render(request, "kenya/contact.html")
+
+    profile = Profile.objects.first()
+
+    if request.method == "POST":
+
+        Contact.objects.create(
+            name=request.POST.get("name", ""),
+            email=request.POST.get("email", ""),
+            subject=request.POST.get("subject", ""),
+            message=request.POST.get("message", "")
+        )
+
+        return redirect("contact")
+
+
+    context = {
+        "profile": profile,
+        "settings": SiteSettings.objects.first(),
+    }
+
+    return render(request, "kenya/contact.html", context)
+
+
+
+# ==========================
+# MPESA STK PUSH
+# ==========================
+
+
+@require_POST
+def pay_mpesa(request):
+
+    try:
+
+        phone = request.POST.get("phone")
+        amount = int(request.POST.get("amount"))
+
+
+        response = stk_push(
+            phone,
+            amount
+        )
+
+
+        MpesaPayment.objects.create(
+
+            phone=phone,
+
+            amount=amount,
+
+            checkout_request_id=response.get(
+                "CheckoutRequestID"
+            ),
+
+            merchant_request_id=response.get(
+                "MerchantRequestID"
+            ),
+
+        )
+
+
+        return JsonResponse(response)
+
+
+    except Exception as e:
+
+        return JsonResponse(
+            {
+                "error": str(e)
+            },
+            status=400
+        )
+
+
+
+def mpesa_callback(request):
+
+    print(request.body)
+
+
+    return JsonResponse(
+        {
+            "ResultCode": 0,
+            "ResultDesc": "Accepted"
+        }
+    )

@@ -257,6 +257,45 @@
 </div>
 ```
 
+<section id="buy-coffee">
+    <div class="buy-coffee-container">
+
+        <div class="buy-coffee-card">
+
+            <div class="buy-coffee-icon">
+                <i class="fas fa-mug-hot"></i>
+            </div>
+
+            <h2>Buy Me a Coffee ☕</h2>
+
+            <p>
+                If you enjoy my work and would like to support my open-source projects,
+                you can buy me a coffee using M-Pesa.
+            </p>
+
+            <div class="amount-options">
+                <button type="button" class="amount-btn">50</button>
+                <button type="button" class="amount-btn active">100</button>
+                <button type="button" class="amount-btn">200</button>
+                <button type="button" class="amount-btn">500</button>
+            </div>
+
+      <form id="mpesa-form" method="POST" action="{% url 'pay' %}">
+    {% csrf_token %}
+
+    <input type="text" name="phone" placeholder="254719678760" required>
+    <input type="number" name="amount" placeholder="Amount" required>
+
+    <button type="submit">
+        Buy Me a Coffee ☕
+    </button>
+</form>
+
+            <div id="payment-message"></div>
+
+        </div>
+
+    </div>
 </section>
 
 <!-- CONTACT -->

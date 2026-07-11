@@ -97,14 +97,9 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files
 
 STATIC_URL = "/static/"
-
-STATICFILES_DIRS = [
-    BASE_DIR / "static",
-]
 
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
@@ -118,3 +113,17 @@ MEDIA_ROOT = BASE_DIR / "media"
 # Default primary key field type
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+# M-PESA SETTINGS
+
+MPESA_CONSUMER_KEY = "AzryM4kaX6z7Jfyu6F2mc2w25XgR5dfkNj9rxA7Fw6uUA7HU"
+MPESA_CONSUMER_SECRET = "odNxHBXFrawceOQ4wPtwnytqm0WAzHN83MwmALM0Ymm1cFT7WiYUvyaPkOSxYdu5"
+
+MPESA_SHORTCODE = "174379"
+
+MPESA_PASSKEY = "YOUR_PASSKEY"
+
+MPESA_ENVIRONMENT = "sandbox"
+
+MPESA_CALLBACK_URL = "https://yourdomain.com/mpesa/callback/"

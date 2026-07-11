@@ -1,23 +1,52 @@
 {% extends 'base.html' %}
 
-{% block title %}
-Blog
-{% endblock %}
-
 {% block content %}
 
-<section class="container">
+<section>
 
-    <h1>Blog Posts</h1>
+```
+<div class="container">
 
-    {% for blog in blogs %}
-        <div>
-            <h3>{{ blog.title }}</h3>
-            <p>{{ blog.content|truncatewords:30 }}</p>
+    <h2>Blog Posts</h2>
+
+    <div class="project-grid">
+
+        {% for blog in blogs %}
+
+        <div class="project-card">
+
+            {% if blog.image %}
+            <img src="{{ blog.image.url }}"
+                 alt="{{ blog.title }}">
+            {% endif %}
+
+            <div class="project-content">
+
+                <h3>{{ blog.title }}</h3>
+
+                <p>{{ blog.content|truncatewords:40 }}</p>
+
+                <br>
+
+                <small>
+                    Published:
+                    {{ blog.published }}
+                </small>
+
+            </div>
+
         </div>
-    {% empty %}
-        <p>No blog posts yet.</p>
-    {% endfor %}
+
+        {% empty %}
+
+        <p>No blog posts available yet.</p>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+```
 
 </section>
 
