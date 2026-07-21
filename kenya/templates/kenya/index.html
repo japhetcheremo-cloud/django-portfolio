@@ -6,7 +6,7 @@
 
 <section id="hero">
 
-```
+
 <div class="container hero-container">
 
     <div class="hero-text">
@@ -67,7 +67,7 @@
     </div>
 
 </div>
-```
+
 
 </section>
 
@@ -75,7 +75,7 @@
 
 <section id="about">
 
-```
+
 <div class="container">
 
     <h2>About Me</h2>
@@ -83,7 +83,7 @@
     <p>{{ profile.bio }}</p>
 
 </div>
-```
+
 
 </section>
 
@@ -91,7 +91,7 @@
 
 <section id="skills">
 
-```
+
 <div class="container">
 
     <h2>My Skills</h2>
@@ -117,7 +117,7 @@
     </div>
 
 </div>
-```
+
 
 </section>
 
@@ -125,7 +125,7 @@
 
 <section id="services">
 
-```
+
 <div class="container">
 
     <h2>Services</h2>
@@ -151,7 +151,7 @@
     </div>
 
 </div>
-```
+
 
 </section>
 
@@ -159,7 +159,7 @@
 
 <section id="projects">
 
-```
+
 <div class="container">
 
     <h2>Featured Projects</h2>
@@ -217,7 +217,7 @@
     </div>
 
 </div>
-```
+
 
 </section>
 
@@ -302,7 +302,6 @@
 
 <section id="contact">
 
-```
 <div class="container">
 
     <h2>Get In Touch</h2>
@@ -320,8 +319,116 @@
     </a>
 
 </div>
-```
+<!-- ===================== -->
+<!-- FLOATING AI BUTTON -->
+<!-- ===================== -->
 
-</section>
+<button id="chat-toggle">
+    <span class="cheremo-icon">JCA</span>
+</button>
+
+<!-- ===================== -->
+<!-- AI CHATBOT -->
+<!-- ===================== -->
+
+<div id="chatbot">
+
+    <div id="chat-header">
+        <span>🤖 Cheremo AI</span>
+
+        <button id="close-chat">
+            ✖
+        </button>
+    </div>
+
+    <div id="chat-box">
+
+        <div class="chat-welcome">
+            👋 Welcome!<br><br>
+
+            Ask me about:<br><br>
+
+            • My Projects<br>
+            • My Skills<br>
+            • Software Engineering<br>
+            • Django Development<br>
+            • Contact Information
+        </div>
+
+    </div>
+
+    <div id="chat-input">
+
+        <input
+            id="message"
+            placeholder="Ask Cheremo anything..."
+        >
+
+        <button onclick="sendMessage()">
+            ➤
+        </button>
+
+    </div>
+
+</div>
+
+<script>
+
+const chatbot = document.getElementById("chatbot");
+const toggle = document.getElementById("chat-toggle");
+const closeBtn = document.getElementById("close-chat");
+
+// Hide chatbot when page loads
+chatbot.style.display = "none";
+
+// Open chatbot
+toggle.addEventListener("click", () => {
+    chatbot.style.display = "flex";
+    toggle.style.display = "none";
+});
+
+// Close chatbot
+closeBtn.addEventListener("click", () => {
+    chatbot.style.display = "none";
+    toggle.style.display = "block";
+});
+
+async function sendMessage(){
+
+    const input = document.getElementById("message");
+    const message = input.value;
+
+    if(message.trim()=="") return;
+
+    document.getElementById("chat-box").innerHTML +=
+    `<div class="user-message">${message}</div>`;
+
+    input.value="";
+
+    const response = await fetch("/chatbot/",{
+
+        method:"POST",
+
+        headers:{
+            "Content-Type":"application/json"
+        },
+
+        body:JSON.stringify({
+            message:message
+        })
+
+    });
+
+    const data = await response.json();
+
+    document.getElementById("chat-box").innerHTML +=
+    `<div class="ai-message">${data.reply}</div>`;
+
+    const chatBox = document.getElementById("chat-box");
+    chatBox.scrollTop = chatBox.scrollHeight;
+}
+
+</script>
 
 {% endblock %}
+

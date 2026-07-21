@@ -6,7 +6,6 @@
 
 <head>
 
-```
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -49,13 +48,16 @@
 {% if settings and settings.favicon %}
     <link rel="icon" href="{{ settings.favicon.url }}">
 {% endif %}
-```
+
 
 </head>
-
 <body>
 
-```
+<div id="particles-js"></div>
+
+
+
+
 <!-- NAVIGATION -->
 
 <nav>
@@ -174,7 +176,10 @@
     </div>
 
 </footer>
-```
+
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+<script src="{% static 'js/particles-config.js' %}"></script>
+
 
 </body>
 

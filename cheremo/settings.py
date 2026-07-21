@@ -1,4 +1,10 @@
 from pathlib import Path
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 # Build paths inside the project
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -127,3 +133,5 @@ MPESA_PASSKEY = "bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c91
 MPESA_ENVIRONMENT = "sandbox"
 
 MPESA_CALLBACK_URL = "https://django-portfolio-fawn.vercel.app/mpesa/callback/"
+
+

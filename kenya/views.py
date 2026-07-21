@@ -5,6 +5,13 @@ from django.views.decorators.http import require_POST
 from .models import *
 from .mpesa import stk_push
 
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from openai import OpenAI
+from django.conf import settings
+import json
+client = OpenAI(api_key=settings.OPENAI_API_KEY)
+
 
 
 def home(request):
@@ -145,3 +152,20 @@ def mpesa_callback(request):
             "ResultDesc": "Accepted"
         }
     )
+
+
+
+@csrf_exempt
+def chatbot(request):
+    if request.method == "POST":
+        data = json.loads(request.body)
+        message = data.get("message")
+
+        response = client.responses.create(
+            model="gpt-5",
+            input=message
+        )
+
+        return JsonResponse({
+            "reply": response.output_text
+        })

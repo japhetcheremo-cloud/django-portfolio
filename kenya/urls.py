@@ -11,4 +11,5 @@ urlpatterns = [
     # M-Pesa
     path("pay/", views.pay_mpesa, name="pay"),
     path("mpesa/callback/", views.mpesa_callback, name="callback"),
+    path("chatbot/", views.chatbot, name="chatbot"),
 ]
