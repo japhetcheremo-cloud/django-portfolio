@@ -13,3 +13,6 @@ requests==2.34.2
 sqlparse==0.5.4
 tzdata==2025.2
 urllib3==2.7.0
+Django
+python-dotenv
+requests
