@@ -5,13 +5,13 @@ from django.views.decorators.http import require_POST
 from .models import *
 from .mpesa import stk_push
 
+import json
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from openai import OpenAI
 from django.conf import settings
-import json
-client = OpenAI(api_key=settings.OPENAI_API_KEY)
+from openai import OpenAI
 
+client = OpenAI(api_key=settings.OPENAI_API_KEY)
 
 
 def home(request):
@@ -152,20 +152,30 @@ def mpesa_callback(request):
             "ResultDesc": "Accepted"
         }
     )
-
-
-
 @csrf_exempt
 def chatbot(request):
-    if request.method == "POST":
+    if request.method != "POST":
+        return JsonResponse({"error": "POST request required"}, status=405)
+
+    if client is None:
+        return JsonResponse({
+            "reply": "The AI chatbot is temporarily unavailable because the API key has not been configured."
+        })
+
+    try:
         data = json.loads(request.body)
-        message = data.get("message")
+        message = data.get("message", "")
 
         response = client.responses.create(
             model="gpt-5",
-            input=message
+            input=message,
         )
 
         return JsonResponse({
             "reply": response.output_text
         })
+
+    except Exception as e:
+        return JsonResponse({
+            "reply": f"Error: {str(e)}"
+        }, status=500)
