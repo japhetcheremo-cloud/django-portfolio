@@ -1,18 +1,33 @@
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
+from django.views.decorators.csrf import csrf_exempt
+from django.conf import settings
+
+import json
+from openai import OpenAI
 
 from .models import *
 from .mpesa import stk_push
 
-import json
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from django.conf import settings
-from openai import OpenAI
 
-client = OpenAI(api_key=settings.OPENAI_API_KEY)
 
+# ==========================
+# OPENAI CLIENT
+# ==========================
+
+client = None
+
+if getattr(settings, "OPENAI_API_KEY", None):
+    client = OpenAI(
+        api_key=settings.OPENAI_API_KEY
+    )
+
+
+
+# ==========================
+# HOME
+# ==========================
 
 def home(request):
 
@@ -25,9 +40,17 @@ def home(request):
         "settings": SiteSettings.objects.first(),
     }
 
-    return render(request, "kenya/index.html", context)
+    return render(
+        request,
+        "kenya/index.html",
+        context
+    )
 
 
+
+# ==========================
+# ABOUT
+# ==========================
 
 def about(request):
 
@@ -39,9 +62,17 @@ def about(request):
         "settings": SiteSettings.objects.first(),
     }
 
-    return render(request, "kenya/about.html", context)
+    return render(
+        request,
+        "kenya/about.html",
+        context
+    )
 
 
+
+# ==========================
+# PROJECTS
+# ==========================
 
 def projects(request):
 
@@ -50,9 +81,17 @@ def projects(request):
         "settings": SiteSettings.objects.first(),
     }
 
-    return render(request, "kenya/projects.html", context)
+    return render(
+        request,
+        "kenya/projects.html",
+        context
+    )
 
 
+
+# ==========================
+# BLOG
+# ==========================
 
 def blog(request):
 
@@ -61,9 +100,17 @@ def blog(request):
         "settings": SiteSettings.objects.first(),
     }
 
-    return render(request, "kenya/blog.html", context)
+    return render(
+        request,
+        "kenya/blog.html",
+        context
+    )
 
 
+
+# ==========================
+# CONTACT
+# ==========================
 
 def contact(request):
 
@@ -86,14 +133,18 @@ def contact(request):
         "settings": SiteSettings.objects.first(),
     }
 
-    return render(request, "kenya/contact.html", context)
+
+    return render(
+        request,
+        "kenya/contact.html",
+        context
+    )
 
 
 
 # ==========================
 # MPESA STK PUSH
 # ==========================
-
 
 @require_POST
 def pay_mpesa(request):
@@ -141,6 +192,11 @@ def pay_mpesa(request):
 
 
 
+# ==========================
+# MPESA CALLBACK
+# ==========================
+
+@csrf_exempt
 def mpesa_callback(request):
 
     print(request.body)
@@ -152,30 +208,79 @@ def mpesa_callback(request):
             "ResultDesc": "Accepted"
         }
     )
+
+
+
+# ==========================
+# AI CHATBOT
+# ==========================
+
 @csrf_exempt
 def chatbot(request):
+
     if request.method != "POST":
-        return JsonResponse({"error": "POST request required"}, status=405)
 
-    if client is None:
-        return JsonResponse({
-            "reply": "The AI chatbot is temporarily unavailable because the API key has not been configured."
-        })
-
-    try:
-        data = json.loads(request.body)
-        message = data.get("message", "")
-
-        response = client.responses.create(
-            model="gpt-5",
-            input=message,
+        return JsonResponse(
+            {
+                "error": "POST request required"
+            },
+            status=405
         )
 
-        return JsonResponse({
-            "reply": response.output_text
-        })
+
+    if client is None:
+
+        return JsonResponse(
+            {
+                "reply": "AI chatbot is unavailable. OpenAI API key is missing."
+            },
+            status=500
+        )
+
+
+    try:
+
+        data = json.loads(
+            request.body
+        )
+
+
+        message = data.get(
+            "message",
+            ""
+        )
+
+
+        if not message:
+
+            return JsonResponse(
+                {
+                    "reply": "Please enter a message."
+                }
+            )
+
+
+        response = client.responses.create(
+
+            model="gpt-5",
+
+            input=message
+
+        )
+
+
+        return JsonResponse(
+            {
+                "reply": response.output_text
+            }
+        )
+
 
     except Exception as e:
-        return JsonResponse({
-            "reply": f"Error: {str(e)}"
-        }, status=500)
+
+        return JsonResponse(
+            {
+                "reply": str(e)
+            },
+            status=500
+        )
