@@ -142,24 +142,3 @@ MEDIA_ROOT = BASE_DIR / "media"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-
-
-# OPENAI
-
-OPENAI_API_KEY = "your-openai-key-here"
-
-
-
-# M-PESA SETTINGS
-
-MPESA_CONSUMER_KEY = "Z0FOqhM261jn1F8I6dQxgMQnJoaEQmndAfYA2sFnU6cCGYQU"
-
-MPESA_CONSUMER_SECRET = "Ggn4vR1PAvzB4CI7oe681F5sEHbhSDCueof2SHfAiyAhbkplGm0n4erA4hcmurca"
-
-MPESA_SHORTCODE = "174379"
-
-MPESA_PASSKEY = "bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919"
-
-MPESA_ENVIRONMENT = "sandbox"
-
-MPESA_CALLBACK_URL = "https://django-portfolio-fawn.vercel.app/mpesa/callback/"
