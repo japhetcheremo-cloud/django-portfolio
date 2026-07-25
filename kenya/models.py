@@ -196,3 +196,45 @@ class SiteSettings(models.Model):
 
     def __str__(self):
         return self.site_name
+    
+    from django.db import models
+
+
+class MpesaPayment(models.Model):
+
+    phone = models.CharField(max_length=15)
+
+    amount = models.IntegerField()
+
+    checkout_request_id = models.CharField(
+        max_length=100,
+        blank=True,
+        null=True
+    )
+
+    merchant_request_id = models.CharField(
+        max_length=100,
+        blank=True,
+        null=True
+    )
+
+    receipt = models.CharField(
+        max_length=100,
+        blank=True,
+        null=True
+    )
+
+
+    status = models.CharField(
+        max_length=50,
+        default="Pending"
+    )
+
+
+    created_at = models.DateTimeField(
+        auto_now_add=True
+    )
+
+
+    def __str__(self):
+        return self.phone

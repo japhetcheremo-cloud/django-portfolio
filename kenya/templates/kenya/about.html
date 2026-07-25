@@ -1,14 +1,175 @@
 {% extends 'base.html' %}
 
-{% block title %}
-About Me
-{% endblock %}
-
 {% block content %}
 
-<section class="container">
-    <h1>About Me</h1>
-    <p>{{ profile.bio }}</p>
+<section id="about">
+
+```
+<div class="container">
+
+    <h2>About Me</h2>
+
+    {% if profile %}
+
+    <div style="text-align:center; margin-bottom:40px;">
+
+        {% if profile.profile_image %}
+        <img src="{{ profile.profile_image.url }}"
+             alt="{{ profile.full_name }}"
+             style="
+             width:220px;
+             height:220px;
+             object-fit:cover;
+             border-radius:50%;
+             border:4px solid red;
+             margin-bottom:20px;">
+        {% endif %}
+
+        <h3>{{ profile.full_name }}</h3>
+
+        <p>{{ profile.profession }}</p>
+
+        <p>{{ profile.bio }}</p>
+
+    </div>
+
+    {% endif %}
+
+</div>
+```
+
+</section>
+
+<section>
+
+```
+<div class="container">
+
+    <h2>Education</h2>
+
+    <div class="skills-grid">
+
+        {% for item in education %}
+
+        <div class="skill-card">
+
+            <h3>{{ item.school }}</h3>
+
+            <p><strong>{{ item.course }}</strong></p>
+
+            <p>
+                {{ item.start_year }}
+                -
+                {{ item.end_year }}
+            </p>
+
+            <p>{{ item.description }}</p>
+
+        </div>
+
+        {% empty %}
+
+        <p>No education records available.</p>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+```
+
+</section>
+
+<section>
+
+```
+<div class="container">
+
+    <h2>Experience</h2>
+
+    <div class="skills-grid">
+
+        {% for item in experience %}
+
+        <div class="skill-card">
+
+            <h3>{{ item.company }}</h3>
+
+            <p><strong>{{ item.position }}</strong></p>
+
+            <p>
+                {{ item.start_date }}
+                -
+                {{ item.end_date }}
+            </p>
+
+            <p>{{ item.description }}</p>
+
+        </div>
+
+        {% empty %}
+
+        <p>No experience records available.</p>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+```
+
+</section>
+
+<section>
+
+```
+<div class="container">
+
+    <h2>Certificates</h2>
+
+    <div class="skills-grid">
+
+        {% for cert in certificates %}
+
+        <div class="skill-card">
+
+            <h3>{{ cert.title }}</h3>
+
+            <p>{{ cert.issuer }}</p>
+
+            <p>{{ cert.issue_date }}</p>
+
+            {% if cert.certificate %}
+            <a href="{{ cert.certificate.url }}"
+               target="_blank"
+               class="btn">
+                View Certificate
+            </a>
+            {% endif %}
+
+            {% if cert.verification_link %}
+            <br><br>
+
+            <a href="{{ cert.verification_link }}"
+               target="_blank"
+               class="btn">
+                Verify
+            </a>
+            {% endif %}
+
+        </div>
+
+        {% empty %}
+
+        <p>No certificates available.</p>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+```
+
 </section>
 
 {% endblock %}

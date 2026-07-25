@@ -1,18 +1,70 @@
 {% extends 'base.html' %}
 
-{% block title %}
-Contact
-{% endblock %}
-
 {% block content %}
 
-<section class="container">
+<section id="contact">
 
-    <h1>Contact Me</h1>
+```
+<div class="container">
 
-    <p>Email: {{ profile.email }}</p>
-    <p>Phone: {{ profile.phone }}</p>
-    <p>Location: {{ profile.location }}</p>
+    <h2>Contact Me</h2>
+
+    <p><strong>Email:</strong> {{ profile.email }}</p>
+
+    <p><strong>Phone:</strong> {{ profile.phone }}</p>
+
+    <p><strong>Location:</strong> {{ profile.location }}</p>
+
+    <br><br>
+
+    <form method="POST" style="max-width:700px;margin:auto;">
+
+        {% csrf_token %}
+
+        <input
+            type="text"
+            name="name"
+            placeholder="Your Name"
+            required
+            class="contact-input">
+
+        <br><br>
+
+        <input
+            type="email"
+            name="email"
+            placeholder="Your Email"
+            required
+            class="contact-input">
+
+        <br><br>
+
+        <input
+            type="text"
+            name="subject"
+            placeholder="Subject"
+            required
+            class="contact-input">
+
+        <br><br>
+
+        <textarea
+            name="message"
+            rows="6"
+            placeholder="Your Message"
+            required
+            class="contact-input"></textarea>
+
+        <br><br>
+
+        <button type="submit" class="btn">
+            Send Message
+        </button>
+
+    </form>
+
+</div>
+```
 
 </section>
 
