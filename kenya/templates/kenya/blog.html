@@ -1,53 +1,118 @@
+
 {% extends 'base.html' %}
+
+{% block title %}Blog | Japhet Cheremo{% endblock %}
 
 {% block content %}
 
-<section>
+<section class="inner-page-hero">
+    <div class="container">
+        <span class="page-eyebrow">THOUGHTS & INSIGHTS</span>
+        <h1>My <span>Blog.</span></h1>
+        <p>
+            Thoughts, lessons, ideas and insights from my journey
+            through technology and software development.
+        </p>
+    </div>
+</section>
 
-```
-<div class="container">
+<section class="blog-page-section">
+    <div class="container">
 
-    <h2>Blog Posts</h2>
+        <div class="about-section-heading">
+            <span>ARTICLES & UPDATES</span>
+            <h2>Latest Articles</h2>
+            <p>Explore ideas, experiences and technology discussions.</p>
+        </div>
 
-    <div class="project-grid">
+        <div class="blog-grid">
 
-        {% for blog in blogs %}
+            {% for post in posts %}
+            <article class="blog-card">
 
-        <div class="project-card">
+                {% if post.image %}
+                <div class="blog-image">
+                    <img src="{{ post.image.url }}" alt="{{ post.title }}" loading="lazy">
+                </div>
+                {% endif %}
 
-            {% if blog.image %}
-            <img src="{{ blog.image.url }}"
-                 alt="{{ blog.title }}">
-            {% endif %}
+                <div class="blog-content">
 
-            <div class="project-content">
+                    <div class="blog-meta">
+                        {% if post.created_at %}
+                        <span><i class="far fa-calendar"></i> {{ post.created_at|date:"M d, Y" }}</span>
+                        {% endif %}
 
-                <h3>{{ blog.title }}</h3>
+                        {% if post.category %}
+                        <span><i class="far fa-folder"></i> {{ post.category }}</span>
+                        {% endif %}
+                    </div>
 
-                <p>{{ blog.content|truncatewords:40 }}</p>
+                    <h2>{{ post.title }}</h2>
 
-                <br>
+                    <p>
+                        {% if post.excerpt %}
+                            {{ post.excerpt }}
+                        {% else %}
+                            {{ post.content|striptags|truncatewords:30 }}
+                        {% endif %}
+                    </p>
 
-                <small>
-                    Published:
-                    {{ blog.published }}
-                </small>
+                    {% if post.url %}
+                    <a href="{{ post.url }}" class="blog-read-more">
+                        Read Article <i class="fas fa-arrow-right"></i>
+                    </a>
+                    {% elif post.link %}
+                    <a href="{{ post.link }}" class="blog-read-more">
+                        Read Article <i class="fas fa-arrow-right"></i>
+                    </a>
+                    {% endif %}
 
+                </div>
+
+            </article>
+
+            {% empty %}
+            <div class="about-empty">
+                <i class="fas fa-newspaper"></i>
+                <p>No articles have been published yet.</p>
             </div>
+            {% endfor %}
 
         </div>
 
-        {% empty %}
+        {% if posts.has_other_pages %}
+        <div class="blog-pagination">
 
-        <p>No blog posts available yet.</p>
+            {% if posts.has_previous %}
+            <a href="?page={{ posts.previous_page_number }}">
+                <i class="fas fa-arrow-left"></i> Previous
+            </a>
+            {% endif %}
 
-        {% endfor %}
+            <span>Page {{ posts.number }} of {{ posts.paginator.num_pages }}</span>
+
+            {% if posts.has_next %}
+            <a href="?page={{ posts.next_page_number }}">
+                Next <i class="fas fa-arrow-right"></i>
+            </a>
+            {% endif %}
+
+        </div>
+        {% endif %}
 
     </div>
+</section>
 
-</div>
-```
-
+<section class="about-cta">
+    <div class="container">
+        <span>KEEP CONNECTED</span>
+        <h2>Have Something to Share?</h2>
+        <p>Let's connect and exchange ideas about technology and innovation.</p>
+        <a href="{% url 'contacts' %}" class="about-btn">
+            Get In Touch <i class="fas fa-arrow-right"></i>
+        </a>
+    </div>
 </section>
 
 {% endblock %}

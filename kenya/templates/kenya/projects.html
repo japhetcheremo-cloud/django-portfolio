@@ -1,86 +1,93 @@
+
 {% extends 'base.html' %}
+
+{% block title %}My Projects | Japhet Cheremo{% endblock %}
 
 {% block content %}
 
-<section id="projects">
+<section class="inner-page-hero">
+    <div class="container">
+        <span class="page-eyebrow">MY WORK</span>
+        <h1>Projects & <span>Creations.</span></h1>
+        <p>
+            A collection of applications, platforms and digital solutions
+            I've worked on.
+        </p>
+    </div>
+</section>
 
-```
-<div class="container">
+<section class="all-projects-section">
+    <div class="container">
 
-    <h2>My Projects</h2>
+        <div class="about-section-heading">
+            <span>SELECTED WORK</span>
+            <h2>Featured Projects</h2>
+            <p>Ideas transformed into working digital products.</p>
+        </div>
 
-    <div class="project-grid">
+        <div class="project-grid">
 
-        {% for project in projects %}
+            {% for project in projects %}
+            <article class="project-card">
 
-        <div class="project-card">
-
-            {% if project.image %}
-            <img src="{{ project.image.url }}"
-                 alt="{{ project.title }}">
-            {% endif %}
-
-            <div class="project-content">
-
-                <h3>{{ project.title }}</h3>
-
-                <p>{{ project.description }}</p>
-
-                <br>
-
-                <small>
-                    <strong>Technologies:</strong>
-                    {{ project.technologies }}
-                </small>
-
-                <br><br>
-
-                <small>
-                    <strong>Status:</strong>
-                    {{ project.status }}
-                </small>
-
-                <br><br>
-
-                <small>
-                    <strong>Created:</strong>
-                    {{ project.created }}
-                </small>
-
-                <br><br>
-
-                {% if project.github %}
-                <a href="{{ project.github }}"
-                   target="_blank"
-                   class="btn">
-                    GitHub
-                </a>
+                {% if project.image %}
+                <div class="project-image">
+                    <img src="{{ project.image.url }}" alt="{{ project.title }}" loading="lazy">
+                </div>
                 {% endif %}
 
-                {% if project.live_demo %}
-                <a href="{{ project.live_demo }}"
-                   target="_blank"
-                   class="btn"
-                   style="margin-left:10px;">
-                    Live Demo
-                </a>
-                {% endif %}
+                <div class="project-content">
+                    <span class="project-label">PROJECT</span>
 
+                    <h3>{{ project.title }}</h3>
+
+                    <p>{{ project.description }}</p>
+
+                    {% if project.technologies %}
+                    <div class="project-technologies">
+                        <strong>Technologies</strong>
+                        <p>{{ project.technologies }}</p>
+                    </div>
+                    {% endif %}
+
+                    <div class="project-links">
+                        {% if project.github %}
+                        <a href="{{ project.github }}" target="_blank" rel="noopener" class="btn">
+                            <i class="fab fa-github"></i> Source Code
+                        </a>
+                        {% endif %}
+
+                        {% if project.live_demo %}
+                        <a href="{{ project.live_demo }}" target="_blank" rel="noopener" class="btn">
+                            <i class="fas fa-external-link-alt"></i> Live Demo
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+
+            </article>
+
+            {% empty %}
+            <div class="about-empty">
+                <i class="fas fa-folder-open"></i>
+                <p>No projects have been added yet.</p>
             </div>
+            {% endfor %}
 
         </div>
 
-        {% empty %}
-
-        <p>No projects available yet.</p>
-
-        {% endfor %}
-
     </div>
+</section>
 
-</div>
-```
-
+<section class="about-cta">
+    <div class="container">
+        <span>HAVE AN IDEA?</span>
+        <h2>Let's Work Together</h2>
+        <p>Let's turn your next idea into a practical digital solution.</p>
+        <a href="{% url 'contacts' %}" class="about-btn">
+            Contact Me <i class="fas fa-arrow-right"></i>
+        </a>
+    </div>
 </section>
 
 {% endblock %}

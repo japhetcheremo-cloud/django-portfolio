@@ -1,206 +1,93 @@
+
 {% extends 'base.html' %}
 
 {% block content %}
 
-<!-- HERO SECTION -->
+<!-- =========================================
+     PREMIUM HERO SECTION
+========================================= -->
 
-<section id="hero">
+<section id="hero" class="premium-hero">
 
+    <div class="hero-glow hero-glow-one"></div>
+    <div class="hero-glow hero-glow-two"></div>
 
-<div class="container hero-container">
+    <div class="container premium-hero-container">
 
-    <div class="hero-text">
+        <div class="premium-hero-content">
 
-        <h1>{{ profile.full_name }}</h1>
+            <div class="hero-eyebrow">
+                <span class="status-dot"></span>
+                WELCOME TO MY DIGITAL SPACE
+            </div>
 
-        <h2>{{ profile.profession }}</h2>
+            <p class="hero-greeting">Hey, I'm</p>
 
-        <p>{{ profile.slogan }}</p>
+            <h1>
+                Japhet Cheremo
+                <span>Amumala.</span>
+            </h1>
 
-        <a href="#projects" class="btn">
-            View My Projects
-        </a>
+            <div class="hero-profession">
+                <span class="profession-prefix">I'm a</span>
+                <span id="typing-text" aria-live="polite">
+                    Software Engineer
+                </span>
+                <span class="typing-cursor"></span>
+            </div>
 
-        {% if profile.cv %}
-        <a href="{{ profile.cv.url }}" class="btn" target="_blank" style="margin-left:10px;">
-            Download CV
-        </a>
-        {% endif %}
+            <p class="hero-description">
+                {{ profile.slogan|default:"I transform ideas into innovative digital experiences, building modern, scalable and impactful software solutions." }}
+            </p>
 
-        <div class="social-links">
+            <div class="hero-actions">
 
-            {% if profile.github %}
-            <a href="{{ profile.github }}" target="_blank">
-                GitHub
-            </a>
-            {% endif %}
+                <a href="#projects" class="hero-btn hero-btn-primary">
+                    Explore My Work
+                    <i class="fas fa-arrow-right"></i>
+                </a>
 
-            {% if profile.twitter %}
-            <a href="{{ profile.twitter }}" target="_blank">
-                Twitter
-            </a>
-            {% endif %}
-
-            {% if profile.instagram %}
-            <a href="{{ profile.instagram }}" target="_blank">
-                Instagram
-            </a>
-            {% endif %}
-
-            {% if profile.facebook %}
-            <a href="{{ profile.facebook }}" target="_blank">
-                Facebook
-            </a>
-            {% endif %}
-
-        </div>
-
-    </div>
-
-    <div class="hero-image">
-
-        {% if profile.profile_image %}
-        <img src="{{ profile.profile_image.url }}"
-             alt="{{ profile.full_name }}">
-        {% endif %}
-
-    </div>
-
-</div>
-
-
-</section>
-
-<!-- ABOUT -->
-
-<section id="about">
-
-
-<div class="container">
-
-    <h2>About Me</h2>
-
-    <p>{{ profile.bio }}</p>
-
-</div>
-
-
-</section>
-
-<!-- SKILLS -->
-
-<section id="skills">
-
-
-<div class="container">
-
-    <h2>My Skills</h2>
-
-    <div class="skills-grid">
-
-        {% for skill in skills %}
-
-        <div class="skill-card">
-
-            <h3>{{ skill.name }}</h3>
-
-            <p>{{ skill.percentage }}%</p>
-
-        </div>
-
-        {% empty %}
-
-        <p>No skills added yet.</p>
-
-        {% endfor %}
-
-    </div>
-
-</div>
-
-
-</section>
-
-<!-- SERVICES -->
-
-<section id="services">
-
-
-<div class="container">
-
-    <h2>Services</h2>
-
-    <div class="skills-grid">
-
-        {% for service in services %}
-
-        <div class="skill-card">
-
-            <h3>{{ service.title }}</h3>
-
-            <p>{{ service.description }}</p>
-
-        </div>
-
-        {% empty %}
-
-        <p>No services available.</p>
-
-        {% endfor %}
-
-    </div>
-
-</div>
-
-
-</section>
-
-<!-- PROJECTS -->
-
-<section id="projects">
-
-
-<div class="container">
-
-    <h2>Featured Projects</h2>
-
-    <div class="project-grid">
-
-        {% for project in projects %}
-
-        <div class="project-card">
-
-            {% if project.image %}
-            <img src="{{ project.image.url }}"
-                 alt="{{ project.title }}">
-            {% endif %}
-
-            <div class="project-content">
-
-                <h3>{{ project.title }}</h3>
-
-                <p>{{ project.description|truncatewords:25 }}</p>
-
-                <small>
-                    <strong>Technologies:</strong>
-                    {{ project.technologies }}
-                </small>
-
-                <br><br>
-
-                {% if project.github %}
-                <a href="{{ project.github }}"
+                {% if profile.cv %}
+                <a href="{{ profile.cv.url }}"
+                   class="hero-btn hero-btn-outline"
                    target="_blank"
-                   class="btn">
-                    GitHub
+                   rel="noopener">
+                    <i class="fas fa-download"></i>
+                    Download CV
                 </a>
                 {% endif %}
 
-                {% if project.live_demo %}
-                <a href="{{ project.live_demo }}"
-                   target="_blank"
-                   class="btn">
-                    Live Demo
+            </div>
+
+            <div class="hero-socials">
+
+                <span>CONNECT WITH ME</span>
+
+                {% if profile.github %}
+                <a href="{{ profile.github }}" target="_blank"
+                   rel="noopener noreferrer" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                {% endif %}
+
+                {% if profile.twitter %}
+                <a href="{{ profile.twitter }}" target="_blank"
+                   rel="noopener noreferrer" aria-label="X">
+                    <i class="fab fa-x-twitter"></i>
+                </a>
+                {% endif %}
+
+                {% if profile.instagram %}
+                <a href="{{ profile.instagram }}" target="_blank"
+                   rel="noopener noreferrer" aria-label="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                {% endif %}
+
+                {% if profile.facebook %}
+                <a href="{{ profile.facebook }}" target="_blank"
+                   rel="noopener noreferrer" aria-label="Facebook">
+                    <i class="fab fa-facebook-f"></i>
                 </a>
                 {% endif %}
 
@@ -208,56 +95,314 @@
 
         </div>
 
-        {% empty %}
+        <div class="premium-hero-image">
 
-        <p>No projects available yet.</p>
+            <div class="portrait-decoration"></div>
 
-        {% endfor %}
+            {% if profile.profile_image %}
+                <img src="{{ profile.profile_image.url }}"
+                     alt="Japhet Cheremo Amumala - Software Engineer"
+                     fetchpriority="high">
+            {% else %}
+                <div class="portrait-placeholder">
+                    <i class="fas fa-user"></i>
+                </div>
+            {% endif %}
 
-    </div>
+            <div class="floating-tech tech-one">
+                <i class="fab fa-python"></i>
+            </div>
 
-</div>
+            <div class="floating-tech tech-two">
+                <i class="fab fa-github"></i>
+            </div>
 
+            <div class="floating-tech tech-three">
+                <i class="fas fa-code"></i>
+            </div>
 
-</section>
-
-<!-- TESTIMONIALS -->
-
-<section id="testimonials">
-
-```
-<div class="container">
-
-    <h2>Testimonials</h2>
-
-    <div class="skills-grid">
-
-        {% for testimonial in testimonials %}
-
-        <div class="skill-card">
-
-            <h3>{{ testimonial.name }}</h3>
-
-            <small>{{ testimonial.profession }}</small>
-
-            <p style="margin-top:15px;">
-                "{{ testimonial.message }}"
-            </p>
+            <div class="hero-image-caption">
+                <span class="caption-line"></span>
+                <div>
+                    <strong>JAPHET CHEREMO</strong>
+                    <small>SOFTWARE ENGINEER</small>
+                </div>
+            </div>
 
         </div>
 
-        {% empty %}
+    </div>
 
-        <p>No testimonials available.</p>
+    <div class="hero-bottom-label">
+        <span>SCROLL TO EXPLORE</span>
+        <i class="fas fa-arrow-down"></i>
+    </div>
 
-        {% endfor %}
+</section>
+
+
+<!-- =========================================
+     HERO TYPING EFFECT
+========================================= -->
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    const typingElement = document.getElementById("typing-text");
+
+    if (!typingElement) return;
+
+    const words = [
+        "Software Engineer",
+        "Full-Stack Developer",
+        "Python & Django Developer",
+        "Web Application Developer",
+        "Technology Enthusiast"
+    ];
+
+    let wordIndex = 0;
+    let characterIndex = 0;
+    let deleting = false;
+
+    function typeEffect() {
+
+        const currentWord = words[wordIndex];
+
+        if (!deleting) {
+
+            typingElement.textContent =
+                currentWord.substring(0, characterIndex + 1);
+
+            characterIndex++;
+
+            if (characterIndex === currentWord.length) {
+                deleting = true;
+                setTimeout(typeEffect, 1600);
+                return;
+            }
+
+        } else {
+
+            typingElement.textContent =
+                currentWord.substring(0, characterIndex - 1);
+
+            characterIndex--;
+
+            if (characterIndex === 0) {
+                deleting = false;
+                wordIndex = (wordIndex + 1) % words.length;
+            }
+
+        }
+
+        setTimeout(typeEffect, deleting ? 45 : 85);
+    }
+
+    if (!window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+    ).matches) {
+        setTimeout(typeEffect, 1000);
+    }
+
+});
+</script>
+
+
+<!-- =========================================
+     ABOUT SECTION
+========================================= -->
+
+<section id="about">
+
+    <div class="container">
+
+        <h2>About Me</h2>
+
+        <p>{{ profile.bio }}</p>
 
     </div>
 
-</div>
-```
+</section>
+
+
+<!-- =========================================
+     SKILLS SECTION
+========================================= -->
+
+<section id="skills">
+
+    <div class="container">
+
+        <h2>My Skills</h2>
+
+        <div class="skills-grid">
+
+            {% for skill in skills %}
+
+            <div class="skill-card">
+                <h3>{{ skill.name }}</h3>
+                <p>{{ skill.percentage }}%</p>
+            </div>
+
+            {% empty %}
+
+            <p>No skills added yet.</p>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================
+     SERVICES SECTION
+========================================= -->
+
+<section id="services">
+
+    <div class="container">
+
+        <h2>Services</h2>
+
+        <div class="skills-grid">
+
+            {% for service in services %}
+
+            <div class="skill-card">
+                <h3>{{ service.title }}</h3>
+                <p>{{ service.description }}</p>
+            </div>
+
+            {% empty %}
+
+            <p>No services available.</p>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================
+     PROJECTS SECTION
+========================================= -->
+
+<section id="projects">
+
+    <div class="container">
+
+        <h2>Featured Projects</h2>
+
+        <div class="project-grid">
+
+            {% for project in projects %}
+
+            <div class="project-card">
+
+                {% if project.image %}
+                <img src="{{ project.image.url }}"
+                     alt="{{ project.title }}">
+                {% endif %}
+
+                <div class="project-content">
+
+                    <h3>{{ project.title }}</h3>
+
+                    <p>{{ project.description|truncatewords:25 }}</p>
+
+                    <small>
+                        <strong>Technologies:</strong>
+                        {{ project.technologies }}
+                    </small>
+
+                    <br><br>
+
+                    {% if project.github %}
+                    <a href="{{ project.github }}"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="btn">
+                        GitHub
+                    </a>
+                    {% endif %}
+
+                    {% if project.live_demo %}
+                    <a href="{{ project.live_demo }}"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="btn">
+                        Live Demo
+                    </a>
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+            {% empty %}
+
+            <p>No projects available yet.</p>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================
+     TESTIMONIALS SECTION
+========================================= -->
+
+<section id="testimonials">
+
+    <div class="container">
+
+        <h2>Testimonials</h2>
+
+        <div class="skills-grid">
+
+            {% for testimonial in testimonials %}
+
+            <div class="skill-card">
+
+                <h3>{{ testimonial.name }}</h3>
+
+                <small>{{ testimonial.profession }}</small>
+
+                <p style="margin-top: 15px;">
+                    "{{ testimonial.message }}"
+                </p>
+
+            </div>
+
+            {% empty %}
+
+            <p>No testimonials available.</p>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================
+     BUY ME A COFFEE / M-PESA SECTION
+========================================= -->
 
 <section id="buy-coffee">
+
     <div class="buy-coffee-container">
 
         <div class="buy-coffee-card">
@@ -269,83 +414,132 @@
             <h2>Buy Me a Coffee ☕</h2>
 
             <p>
-                If you enjoy my work and would like to support my open-source projects,
-                you can buy me a coffee using M-Pesa.
+                If you enjoy my work and would like to support
+                my open-source projects, you can buy me a coffee
+                using M-Pesa.
             </p>
 
             <div class="amount-options">
-                <button type="button" class="amount-btn">50</button>
-                <button type="button" class="amount-btn active">100</button>
-                <button type="button" class="amount-btn">200</button>
-                <button type="button" class="amount-btn">500</button>
+
+                <button type="button" class="amount-btn"
+                        data-amount="50">50</button>
+
+                <button type="button" class="amount-btn active"
+                        data-amount="100">100</button>
+
+                <button type="button" class="amount-btn"
+                        data-amount="200">200</button>
+
+                <button type="button" class="amount-btn"
+                        data-amount="500">500</button>
+
             </div>
 
-      <form id="mpesa-form" method="POST" action="{% url 'pay' %}">
-    {% csrf_token %}
+            <form id="mpesa-form"
+                  method="POST"
+                  action="{% url 'pay' %}">
 
-    <input type="text" name="phone" placeholder="254719678760" required>
-    <input type="number" name="amount" placeholder="Amount" required>
+                {% csrf_token %}
 
-    <button type="submit">
-        Buy Me a Coffee ☕
-    </button>
-</form>
+                <input type="text"
+                       name="phone"
+                       placeholder="254719678760"
+                       pattern="254[0-9]{9}"
+                       title="Enter your phone number in the format 2547XXXXXXXX"
+                       required>
 
-            <div id="payment-message"></div>
+                <input type="number"
+                       id="coffee-amount"
+                       name="amount"
+                       placeholder="Amount"
+                       min="1"
+                       value="100"
+                       required>
+
+                <button type="submit">
+                    Buy Me a Coffee ☕
+                </button>
+
+            </form>
+
+            <div id="payment-message"
+                 role="status"
+                 aria-live="polite"></div>
 
         </div>
 
     </div>
+
 </section>
 
-<!-- CONTACT -->
+
+<!-- =========================================
+     CONTACT SECTION
+========================================= -->
 
 <section id="contact">
 
-<div class="container">
+    <div class="container">
 
-    <h2>Get In Touch</h2>
+        <h2>Get In Touch</h2>
 
-    <p><strong>Email:</strong> {{ profile.email }}</p>
+        <p>
+            <strong>Email:</strong>
+            {{ profile.email }}
+        </p>
 
-    <p><strong>Phone:</strong> {{ profile.phone }}</p>
+        <p>
+            <strong>Phone:</strong>
+            {{ profile.phone }}
+        </p>
 
-    <p><strong>Location:</strong> {{ profile.location }}</p>
+        <p>
+            <strong>Location:</strong>
+            {{ profile.location }}
+        </p>
 
-    <br>
+        <br>
 
-    <a href="mailto:{{ profile.email }}" class="btn">
-        Send Email
-    </a>
+        <a href="mailto:{{ profile.email }}" class="btn">
+            Send Email
+        </a>
 
-</div>
-<!-- ===================== -->
-<!-- FLOATING AI BUTTON -->
-<!-- ===================== -->
+    </div>
 
-<button id="chat-toggle">
+</section>
+
+
+<!-- =========================================
+     FLOATING AI CHAT BUTTON
+========================================= -->
+
+<button id="chat-toggle" type="button"
+        aria-label="Open Cheremo GPT">
     <span class="cheremo-icon">JCA</span>
 </button>
 
-<!-- ===================== -->
-<!-- AI CHATBOT -->
-<!-- ===================== -->
+
+<!-- =========================================
+     CHEREMO GPT CHATBOT
+========================================= -->
 
 <div id="chatbot">
 
     <div id="chat-header">
-        <span>🤖 Cheremo GPT
-        
-        </span>
 
-        <button id="close-chat">
+        <span>🤖 Cheremo GPT</span>
+
+        <button id="close-chat" type="button"
+                aria-label="Close chatbot">
             ✖
         </button>
+
     </div>
 
     <div id="chat-box">
 
         <div class="chat-welcome">
+
             👋 Welcome!<br><br>
 
             Ask me about:<br><br>
@@ -355,18 +549,19 @@
             • Software Engineering<br>
             • Django Development<br>
             • Contact Information
+
         </div>
 
     </div>
 
     <div id="chat-input">
 
-        <input
-            id="message"
-            placeholder="Ask Cheremo anything..."
-        >
+        <input id="message"
+               type="text"
+               placeholder="Ask Cheremo anything...">
 
-        <button onclick="sendMessage()">
+        <button type="button" id="send-chat"
+                aria-label="Send message">
             ➤
         </button>
 
@@ -374,63 +569,212 @@
 
 </div>
 
+
+<!-- =========================================
+     PAGE JAVASCRIPT
+========================================= -->
+
 <script>
 
-const chatbot = document.getElementById("chatbot");
-const toggle = document.getElementById("chat-toggle");
-const closeBtn = document.getElementById("close-chat");
+document.addEventListener("DOMContentLoaded", function () {
 
-// Hide chatbot when page loads
-chatbot.style.display = "none";
+    // =====================================
+    // CHEREMO GPT CHATBOT
+    // =====================================
 
-// Open chatbot
-toggle.addEventListener("click", () => {
-    chatbot.style.display = "flex";
-    toggle.style.display = "none";
-});
+    const chatbot = document.getElementById("chatbot");
+    const toggle = document.getElementById("chat-toggle");
+    const closeBtn = document.getElementById("close-chat");
+    const sendBtn = document.getElementById("send-chat");
+    const messageInput = document.getElementById("message");
+    const chatBox = document.getElementById("chat-box");
 
-// Close chatbot
-closeBtn.addEventListener("click", () => {
-    chatbot.style.display = "none";
-    toggle.style.display = "block";
-});
+    if (chatbot && toggle && closeBtn && sendBtn &&
+        messageInput && chatBox) {
 
-async function sendMessage(){
+        chatbot.style.display = "none";
 
-    const input = document.getElementById("message");
-    const message = input.value;
+        toggle.addEventListener("click", function () {
+            chatbot.style.display = "flex";
+            toggle.style.display = "none";
+            messageInput.focus();
+        });
 
-    if(message.trim()=="") return;
+        closeBtn.addEventListener("click", function () {
+            chatbot.style.display = "none";
+            toggle.style.display = "block";
+        });
 
-    document.getElementById("chat-box").innerHTML +=
-    `<div class="user-message">${message}</div>`;
+        function addMessage(message, className) {
 
-    input.value="";
+            const messageElement = document.createElement("div");
 
-    const response = await fetch("/chatbot/",{
+            messageElement.className = className;
+            messageElement.textContent = message;
 
-        method:"POST",
+            chatBox.appendChild(messageElement);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
 
-        headers:{
-            "Content-Type":"application/json"
-        },
+        async function sendMessage() {
 
-        body:JSON.stringify({
-            message:message
-        })
+            const message = messageInput.value.trim();
+
+            if (!message) return;
+
+            addMessage(message, "user-message");
+
+            messageInput.value = "";
+            sendBtn.disabled = true;
+
+            try {
+
+                const response = await fetch("/chatbot/", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        message: message
+                    })
+                });
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(
+                        data.reply || data.error ||
+                        "Chatbot request failed."
+                    );
+                }
+
+                addMessage(
+                    data.reply || "Sorry, I could not generate a response.",
+                    "ai-message"
+                );
+
+            } catch (error) {
+
+                addMessage(
+                    error.message ||
+                    "Sorry, something went wrong. Please try again.",
+                    "ai-message"
+                );
+
+                console.error("Chatbot error:", error);
+
+            } finally {
+                sendBtn.disabled = false;
+            }
+        }
+
+        sendBtn.addEventListener("click", sendMessage);
+
+        messageInput.addEventListener("keydown", function (event) {
+            if (event.key === "Enter") {
+                sendMessage();
+            }
+        });
+    }
+
+
+    // =====================================
+    // M-PESA COFFEE AMOUNT BUTTONS
+    // =====================================
+
+    const amountButtons = document.querySelectorAll(".amount-btn");
+    const amountInput = document.getElementById("coffee-amount");
+
+    amountButtons.forEach(function (button) {
+
+        button.addEventListener("click", function () {
+
+            const selectedAmount = button.dataset.amount;
+
+            amountInput.value = selectedAmount;
+
+            amountButtons.forEach(function (btn) {
+                btn.classList.remove("active");
+            });
+
+            button.classList.add("active");
+        });
 
     });
 
-    const data = await response.json();
 
-    document.getElementById("chat-box").innerHTML +=
-    `<div class="ai-message">${data.reply}</div>`;
+    // =====================================
+    // M-PESA PAYMENT FORM
+    // =====================================
 
-    const chatBox = document.getElementById("chat-box");
-    chatBox.scrollTop = chatBox.scrollHeight;
-}
+    const mpesaForm = document.getElementById("mpesa-form");
+    const paymentMessage = document.getElementById("payment-message");
+
+    if (mpesaForm && paymentMessage) {
+
+        mpesaForm.addEventListener("submit", async function (event) {
+
+            event.preventDefault();
+
+            const submitButton = mpesaForm.querySelector(
+                'button[type="submit"]'
+            );
+
+            submitButton.disabled = true;
+            submitButton.textContent = "Processing...";
+
+            paymentMessage.textContent =
+                "Sending payment request...";
+
+            try {
+
+                const response = await fetch(mpesaForm.action, {
+                    method: "POST",
+                    body: new FormData(mpesaForm)
+                });
+
+                const data = await response.json();
+
+                if (!response.ok || data.error) {
+                    throw new Error(
+                        data.error || "Payment request failed."
+                    );
+                }
+
+                if (data.CheckoutRequestID) {
+
+                    paymentMessage.textContent =
+                        "Payment request sent successfully. Check your phone and enter your M-Pesa PIN.";
+
+                } else {
+
+                    paymentMessage.textContent =
+                        data.ResponseDescription ||
+                        data.CustomerMessage ||
+                        "Payment response received. Please check your phone.";
+
+                }
+
+            } catch (error) {
+
+                paymentMessage.textContent =
+                    error.message || "Unable to process payment.";
+
+                console.error("M-Pesa error:", error);
+
+            } finally {
+
+                submitButton.disabled = false;
+                submitButton.textContent = "Buy Me a Coffee ☕";
+
+            }
+
+        });
+
+    }
+
+});
 
 </script>
 
 {% endblock %}
-

@@ -1,175 +1,251 @@
+
 {% extends 'base.html' %}
+
+{% block title %}About Me | Japhet Cheremo{% endblock %}
 
 {% block content %}
 
-<section id="about">
+<section class="about-hero">
+    <div class="container about-hero-grid">
 
-```
-<div class="container">
+        <div class="about-hero-text">
+            <span class="about-label">GET TO KNOW ME</span>
 
-    <h2>About Me</h2>
+            <h1>About <span>Me.</span></h1>
 
-    {% if profile %}
-
-    <div style="text-align:center; margin-bottom:40px;">
-
-        {% if profile.profile_image %}
-        <img src="{{ profile.profile_image.url }}"
-             alt="{{ profile.full_name }}"
-             style="
-             width:220px;
-             height:220px;
-             object-fit:cover;
-             border-radius:50%;
-             border:4px solid red;
-             margin-bottom:20px;">
-        {% endif %}
-
-        <h3>{{ profile.full_name }}</h3>
-
-        <p>{{ profile.profession }}</p>
-
-        <p>{{ profile.bio }}</p>
-
-    </div>
-
-    {% endif %}
-
-</div>
-```
-
-</section>
-
-<section>
-
-```
-<div class="container">
-
-    <h2>Education</h2>
-
-    <div class="skills-grid">
-
-        {% for item in education %}
-
-        <div class="skill-card">
-
-            <h3>{{ item.school }}</h3>
-
-            <p><strong>{{ item.course }}</strong></p>
+            <h2>Software Engineer | Full-Stack Developer</h2>
 
             <p>
-                {{ item.start_year }}
-                -
-                {{ item.end_year }}
+                I'm Japhet Cheremo Amumala, a software engineer passionate
+                about building modern digital solutions, developing web
+                applications and using technology to solve real-world problems.
             </p>
 
-            <p>{{ item.description }}</p>
+            <div class="about-hero-actions">
+                {% if profile.cv %}
+                <a href="{{ profile.cv.url }}" class="about-btn" target="_blank" rel="noopener">
+                    <i class="fas fa-download"></i> Download My CV
+                </a>
+                {% endif %}
 
+                <a href="{% url 'project' %}" class="about-btn about-btn-outline">
+                    Explore My Projects
+                </a>
+            </div>
         </div>
 
-        {% empty %}
-
-        <p>No education records available.</p>
-
-        {% endfor %}
-
-    </div>
-
-</div>
-```
-
-</section>
-
-<section>
-
-```
-<div class="container">
-
-    <h2>Experience</h2>
-
-    <div class="skills-grid">
-
-        {% for item in experience %}
-
-        <div class="skill-card">
-
-            <h3>{{ item.company }}</h3>
-
-            <p><strong>{{ item.position }}</strong></p>
-
-            <p>
-                {{ item.start_date }}
-                -
-                {{ item.end_date }}
-            </p>
-
-            <p>{{ item.description }}</p>
-
-        </div>
-
-        {% empty %}
-
-        <p>No experience records available.</p>
-
-        {% endfor %}
-
-    </div>
-
-</div>
-```
-
-</section>
-
-<section>
-
-```
-<div class="container">
-
-    <h2>Certificates</h2>
-
-    <div class="skills-grid">
-
-        {% for cert in certificates %}
-
-        <div class="skill-card">
-
-            <h3>{{ cert.title }}</h3>
-
-            <p>{{ cert.issuer }}</p>
-
-            <p>{{ cert.issue_date }}</p>
-
-            {% if cert.certificate %}
-            <a href="{{ cert.certificate.url }}"
-               target="_blank"
-               class="btn">
-                View Certificate
-            </a>
+        <div class="about-visual">
+            {% if profile.profile_image %}
+            <img src="{{ profile.profile_image.url }}" alt="Japhet Cheremo Amumala">
+            {% else %}
+            <div class="about-image-placeholder">
+                <i class="fas fa-user"></i>
+            </div>
             {% endif %}
 
-            {% if cert.verification_link %}
-            <br><br>
-
-            <a href="{{ cert.verification_link }}"
-               target="_blank"
-               class="btn">
-                Verify
-            </a>
-            {% endif %}
-
+            <div class="about-image-tag">
+                <span class="caption-line"></span>
+                <div>
+                    <strong>JAPHET CHEREMO</strong>
+                    <small>SOFTWARE ENGINEER</small>
+                </div>
+            </div>
         </div>
 
-        {% empty %}
+    </div>
+</section>
 
-        <p>No certificates available.</p>
+<section class="about-profile-section">
+    <div class="container">
 
-        {% endfor %}
+        <div class="about-section-heading">
+            <span>MY BACKGROUND</span>
+            <h2>Who I Am</h2>
+            <p>A little more about my journey and what drives me.</p>
+        </div>
+
+        <div class="about-profile-card">
+            <div class="about-profile-icon">
+                <i class="fas fa-user-tie"></i>
+            </div>
+
+            <div class="about-profile-content">
+                <h3>My Professional Profile</h3>
+                <p>
+                    {{ profile.bio|default:"I am a software engineer focused on creating practical, reliable and user-friendly digital solutions."|linebreaksbr }}
+                </p>
+            </div>
+        </div>
+
+        <div class="about-info-grid">
+            <div class="about-info-card">
+                <i class="fas fa-code"></i>
+                <h3>Development</h3>
+                <p>Building modern and responsive web applications.</p>
+            </div>
+
+            <div class="about-info-card">
+                <i class="fas fa-lightbulb"></i>
+                <h3>Problem Solving</h3>
+                <p>Turning ideas and challenges into practical solutions.</p>
+            </div>
+
+            <div class="about-info-card">
+                <i class="fas fa-rocket"></i>
+                <h3>Innovation</h3>
+                <p>Exploring technology and improving digital experiences.</p>
+            </div>
+        </div>
 
     </div>
+</section>
 
-</div>
-```
+<section class="about-education-section" id="education">
+    <div class="container">
 
+        <div class="about-section-heading">
+            <span>ACADEMIC BACKGROUND</span>
+            <h2>Education</h2>
+            <p>My academic journey and learning experiences.</p>
+        </div>
+
+        <div class="about-timeline">
+            {% for item in education %}
+            <div class="about-timeline-item">
+
+                <div class="timeline-marker">
+                    <i class="fas fa-graduation-cap"></i>
+                </div>
+
+                <div class="about-timeline-card">
+                    <span class="timeline-period">
+                        {{ item.start_year }} – {{ item.end_year|default:"Present" }}
+                    </span>
+
+                    <h3>{{ item.course }}</h3>
+                    <h4>{{ item.school }}</h4>
+                    <p>{{ item.description|linebreaksbr }}</p>
+                </div>
+
+            </div>
+            {% empty %}
+            <div class="about-empty">
+                <i class="fas fa-graduation-cap"></i>
+                <p>Education details will be displayed here.</p>
+            </div>
+            {% endfor %}
+        </div>
+
+    </div>
+</section>
+
+<section class="about-experience-section" id="experience">
+    <div class="container">
+
+        <div class="about-section-heading">
+            <span>MY PROFESSIONAL JOURNEY</span>
+            <h2>Experience</h2>
+            <p>Professional roles, responsibilities and practical experience.</p>
+        </div>
+
+        <div class="about-timeline">
+            {% for item in experience %}
+            <div class="about-timeline-item">
+
+                <div class="timeline-marker">
+                    <i class="fas fa-briefcase"></i>
+                </div>
+
+                <div class="about-timeline-card">
+                    <span class="timeline-period">
+                        {{ item.start_date|date:"M Y" }} –
+                        {% if item.end_date %}
+                            {{ item.end_date|date:"M Y" }}
+                        {% else %}
+                            Present
+                        {% endif %}
+                    </span>
+
+                    <h3>{{ item.position }}</h3>
+                    <h4>{{ item.company }}</h4>
+                    <p>{{ item.description|linebreaksbr }}</p>
+                </div>
+
+            </div>
+            {% empty %}
+            <div class="about-empty">
+                <i class="fas fa-briefcase"></i>
+                <p>Experience details will be displayed here.</p>
+            </div>
+            {% endfor %}
+        </div>
+
+    </div>
+</section>
+
+<section class="about-certificates-section" id="certificates">
+    <div class="container">
+
+        <div class="about-section-heading">
+            <span>ACHIEVEMENTS</span>
+            <h2>Certificates & Qualifications</h2>
+            <p>Professional learning and certifications.</p>
+        </div>
+
+        <div class="about-certificates-grid">
+            {% for item in certificates %}
+            <div class="about-certificate-card">
+
+                <div class="certificate-icon">
+                    <i class="fas fa-award"></i>
+                </div>
+
+                <div class="certificate-details">
+                    <h3>{{ item.title }}</h3>
+                    <p>Issued by: {{ item.issuer }}</p>
+                    <span>{{ item.issue_date|date:"F Y" }}</span>
+                </div>
+
+                <div class="certificate-actions">
+                    {% if item.certificate %}
+                    <a href="{{ item.certificate.url }}" target="_blank" rel="noopener">
+                        <i class="fas fa-eye"></i> View Certificate
+                    </a>
+                    {% endif %}
+
+                    {% if item.verification_link %}
+                    <a href="{{ item.verification_link }}" target="_blank" rel="noopener">
+                        <i class="fas fa-external-link-alt"></i> Verify
+                    </a>
+                    {% endif %}
+                </div>
+
+            </div>
+            {% empty %}
+            <div class="about-empty">
+                <i class="fas fa-award"></i>
+                <p>Certificates will be displayed here.</p>
+            </div>
+            {% endfor %}
+        </div>
+
+    </div>
+</section>
+
+<section class="about-cta">
+    <div class="container">
+        <span>LET'S BUILD SOMETHING GREAT</span>
+        <h2>Have a Project in Mind?</h2>
+
+        <p>
+            I'm always interested in exploring ideas, creating solutions
+            and connecting with people who share a passion for technology.
+        </p>
+
+        <a href="{% url 'contacts' %}" class="about-btn">
+            Get In Touch <i class="fas fa-arrow-right"></i>
+        </a>
+    </div>
 </section>
 
 {% endblock %}
