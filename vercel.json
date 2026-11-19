@@ -1,3 +1,4 @@
+
 {
   "version": 2,
   "builds": [
@@ -7,6 +8,10 @@
     }
   ],
   "routes": [
+    {
+      "src": "/media/(.*)",
+      "dest": "/media/$1"
+    },
     {
       "src": "/(.*)",
       "dest": "cheremo/wsgi.py"
